@@ -176,10 +176,7 @@ function Start-DeviceIntuneCallback
         [Parameter(Mandatory=$False)]
         [int]$TotalStorage=1,
         [Parameter(Mandatory=$False)]
-        [string]$SMBiosSerialNumber='0000-0000-0000-0000-0000-0000-00',
-        
-
-
+        [string]$SMBiosSerialNumber='0000-0000-0000-0000-0000-0000-00'
 
     )
     Begin
