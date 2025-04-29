@@ -137,7 +137,50 @@ function Start-DeviceIntuneCallback
         [ValidateSet("User","Others","None")]
         [string]$Scope="None",
         [Parameter(Mandatory=$False)]
-        [int]$SessionId=1
+        [int]$SessionId=1,
+
+
+        ## Device information
+        [Parameter(Mandatory=$False)]
+        [string]$DeviceManufacturer='Microsoft Corporation',
+        [Parameter(Mandatory=$False)]
+        [string]$DeviceModel='Virtual Machine',
+        [Parameter(Mandatory=$False)]
+        [string]$DeviceModelVersion='1.3',
+        [Parameter(Mandatory=$False)]
+        [string]$DeviceLanguage='en-US',
+
+        ## OS information
+        [Parameter(Mandatory=$False)]
+        [string]$OSPlatform='Windows 10 Enterprise',
+        [Parameter(Mandatory=$False)]
+        [string]$OSVersion='10.0.18363.1016',
+        [Parameter(Mandatory=$False)]
+        [string]$DomainName='',
+
+        ## Hardware information
+        [Parameter(Mandatory=$False)]
+        [string]$FWVersion='Hyper-V UEFI Release v4.0',
+        [Parameter(Mandatory=$False)]
+        [string]$HWVersion='Hyper-V UEFI Release v4.0',
+        [Parameter(Mandatory=$False)]
+        [string]$OEM='Microsoft Corporation',
+        [Parameter(Mandatory=$False)]
+        [string]$DeviceType='Virtual Machine',
+        [Parameter(Mandatory=$False)]
+        [int]$ProcessorArchitecture=9,
+        [Parameter(Mandatory=$False)]
+        [int]$ProcessorType=8664,
+        [Parameter(Mandatory=$False)]
+        [int]$TotalRam=1,
+        [Parameter(Mandatory=$False)]
+        [int]$TotalStorage=1,
+        [Parameter(Mandatory=$False)]
+        [string]$SMBiosSerialNumber='0000-0000-0000-0000-0000-0000-00',
+        
+
+
+
     )
     Begin
     {
@@ -339,26 +382,26 @@ function Start-DeviceIntuneCallback
 
 
                 "./DevInfo/DevId" = $DeviceName
-                "./DevInfo/Man" =   "Microsoft Corporation"
-                "./DevInfo/Mod" =   "Virtual Machine"
-                "./DevInfo/DmV" =   "1.3"
-                "./DevInfo/Lang" =  "en-US"
+                "./DevInfo/Man" =   $DeviceManufacturer
+                "./DevInfo/Mod" =   $DeviceModel
+                "./DevInfo/DmV" =   $DeviceModelVersion
+                "./DevInfo/Lang" =  $DeviceLanguage
 
-                "./DevDetail/SwV" =    "10.0.18363.1016"
-                "./DevDetail/FwV" =    "Hyper-V UEFI Release v4.0"
-                "./DevDetail/HwV" =    "Hyper-V UEFI Release v4.0"
-                "./DevDetail/OEM" =    "Microsoft Corporation"
-                "./DevDetail/DevTyp" = "Virtual Machine"
+                "./DevDetail/SwV" =    $OSVersion
+                "./DevDetail/FwV" =    $FWVersion
+                "./DevDetail/HwV" =    $HWVersion
+                "./DevDetail/OEM" =    $OEM
+                "./DevDetail/DevTyp" = $DeviceType
 
                 "./DevDetail/Ext/Microsoft/LocalTime" =             "$((Get-Date).ToString("yyyy-MM-ddTHH:mm:ss").Replace(".",":")).$((Get-Date).ToString("fffffffK"))"
                 "./DevDetail/Ext/Microsoft/DeviceName" =            $encDeviceName
                 "./DevDetail/Ext/Microsoft/DNSComputerName" =       $encDeviceName
-                "./DevDetail/Ext/Microsoft/OSPlatform" =            "Windows 10 Enterprise"
-                "./DevDetail/Ext/Microsoft/ProcessorArchitecture" = "9"
-                "./DevDetail/Ext/Microsoft/ProcessorType" =         "8664"
-                "./DevDetail/Ext/Microsoft/TotalRAM" =              "1"
-                "./DevDetail/Ext/Microsoft/TotalStorage" =          "1"
-                "./DevDetail/Ext/Microsoft/SMBiosSerialNumber" =    "0000-0000-0000-0000-0000-0000-00"
+                "./DevDetail/Ext/Microsoft/OSPlatform" =            $OsPlatform
+                "./DevDetail/Ext/Microsoft/ProcessorArchitecture" = $ProcessorArchitecture
+                "./DevDetail/Ext/Microsoft/ProcessorType" =         $ProcessorType
+                "./DevDetail/Ext/Microsoft/TotalRAM" =              $TotalRam
+                "./DevDetail/Ext/Microsoft/TotalStorage" =          $TotalStorage
+                "./DevDetail/Ext/Microsoft/SMBiosSerialNumber" =    $SMBiosSerialNumber
                 "./DevDetail/Ext/Microsoft/MobileID" =              "Not Present"
 
                 "./Vendor/MSFT/eUICCs" = "com.microsoft/1.2/MDM/eUICCs"
@@ -407,7 +450,7 @@ function Start-DeviceIntuneCallback
 
                 "./Vendor/MSFT/DeviceStatus/TPM/SpecificationVersion" = "2.0"
 
-                "./Vendor/MSFT/DeviceStatus/DomainName" = ""
+                "./Vendor/MSFT/DeviceStatus/DomainName" = $DomainName
 
                 "./Vendor/MSFT/DeviceStatus/DeviceGuard/LsaCfgCredGuardStatus" =             "0" # Running
                 "./Vendor/MSFT/DeviceStatus/DeviceGuard/VirtualizationBasedSecurityHwReq" =  "0" # System meets hardware configuration requirements
@@ -479,10 +522,10 @@ function Start-DeviceIntuneCallback
             CmdID = 3 
             Items = @{
                 "./DevInfo/DevId" = $DeviceName
-                "./DevInfo/Man" =   "Microsoft Corporation"
-                "./DevInfo/Mod" =   "Virtual Machine"
-                "./DevInfo/DmV" =   "1.3"
-                "./DevInfo/Lang" =  "en-US"
+                "./DevInfo/Man" =   $DeviceManufacturer
+                "./DevInfo/Mod" =   $DeviceModel
+                "./DevInfo/DmV" =   $DeviceModelVersion
+                "./DevInfo/Lang" =  $DeviceLanguage
             }
         }
         $commands += New-Object psobject -Property $attr
